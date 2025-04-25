@@ -8,6 +8,10 @@ from matplotlib import pyplot as plt
 
 client = Client()
 
+#TOF threading
+tof_thread = WorkerThread(client.get_plane_distance)
+
+#Camera Feed
 def show_image():
     while True:
         frame, results = client.get_frame(PostProcessors.Google_IMDA)
@@ -23,16 +27,17 @@ def show_image():
 video_thread = threading.Thread(target=show_image)
 
 client.single_fly_takeoff()
-#Adjust the height
-height = int(client.get_plane_distance()/2)
-client.single_fly_down(height)
-client.single_fly_forward(10)
-client.single_fly_radius_around(60)
-client.single_fly_up(height)
+tof_thread.start()
+client.single_fly_forward(120)#Change this value accordingly
 video_thread.start()
-client.single_fly_radius_around(60)
-
-client.single_fly_up(60)
-client.single_fly_forward(20)
-client.single_fly_Qrcode_align(0, 0)
+heights = tof_thread.stop()
 client.single_fly_touchdown()
+
+plt.scatter(range(0, len(heights)), heights)
+for i in range(2, len(heights), 3):
+    gradient = (heights[i-2]-heights[i])/2
+    if gradient > 10 or gradient < -10:
+        print(heights[i-2]-heights[i])
+        break
+
+plt.show()

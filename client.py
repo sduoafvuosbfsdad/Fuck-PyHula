@@ -61,6 +61,7 @@ class Client(pyhula.UserApi):
     def single_fly_takeoff(self, *args, **kwargs):
         self.running = True
         super().single_fly_takeoff(*args, **kwargs)
+        super().single_fly_Qrcode_align(0, 0)
 
     def listen_height(self):
         self.height_data = []
