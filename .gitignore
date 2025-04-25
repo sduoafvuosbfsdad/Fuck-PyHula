@@ -1,2 +1,14 @@
 .idea
-*.dll
+avcodec-58.dll
+avdevice-58.dll
+avfilter-7.dll
+avutil-56.dll
+f09-ffmpeg-lib.dll
+ffmpeg-lib.dll
+msvcp140d.dll
+postproc-55.dll
+swresample-3.dll
+swscale-5.dll
+ucrtbased.dll
+vcruntime140_1d.dll
+VCRUNTIME140D.dll
