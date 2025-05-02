@@ -16,7 +16,7 @@ def show_image():
         imda = results[PostProcessors.Google_IMDA]
         if imda:
             if imda['label'] == 'Google' and imda['score'] > 0.5:
-                break
+                pass
     image = Image.fromarray(frame)
     image.show()
 
@@ -27,12 +27,13 @@ client.single_fly_takeoff()
 height = int(client.get_plane_distance()/2)
 client.single_fly_down(height)
 client.single_fly_forward(10)
-client.single_fly_radius_around(60)
-client.single_fly_up(height)
+client.single_fly_radius_around(70)
+client.single_fly_up(height-10)
 video_thread.start()
-client.single_fly_radius_around(60)
+client.single_fly_radius_around(70)
 
 client.single_fly_up(60)
 client.single_fly_forward(20)
 client.single_fly_Qrcode_align(0, 0)
 client.single_fly_touchdown()
+

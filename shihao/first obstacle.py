@@ -28,7 +28,7 @@ video_thread = threading.Thread(target=show_image)
 
 client.single_fly_takeoff()
 tof_thread.start()
-client.single_fly_forward(120)#Change this value accordingly
+client.single_fly_forward(100)#Change this value accordingly
 video_thread.start()
 heights = tof_thread.stop()
 client.single_fly_touchdown()

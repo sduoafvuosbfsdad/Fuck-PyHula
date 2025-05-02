@@ -1,7 +1,9 @@
 import pyhula
 import time
-from hula_video import hula_video
-from tflite_detector import tflite_detector
+
+from shihao.modules.hula_video import hula_video
+from shihao.modules.tflite_detector import tflite_detector
+
 import cv2
 import numpy as np
 tries = 0
