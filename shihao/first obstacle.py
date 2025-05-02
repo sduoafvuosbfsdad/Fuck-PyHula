@@ -19,7 +19,7 @@ def show_image():
         cv2.waitKey(1)
         imda = results[PostProcessors.Google_IMDA]
         if imda:
-            if imda['label'] == 'Google' and imda['score'] > 0.5:
+            if imda['label'] == 'IMDA' and imda['score'] > 0.5:
                 break
     image = Image.fromarray(frame)
     image.show()
