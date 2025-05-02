@@ -12,7 +12,7 @@ while True:
     for i in range(0, 10):
         cv2.imshow(
             'black',
-            client.get_frame(PostProcessors.ContourBlue)[0]
+            client.get_frame(PostProcessors.ContourRed)[0]
         )
         cv2.waitKey(1)
 
