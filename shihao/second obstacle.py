@@ -8,10 +8,6 @@ from matplotlib import pyplot as plt
 
 client = Client()
 
-#TOF threading
-tof_thread = WorkerThread(client.get_plane_distance)
-
-#Camera Feed
 def show_image():
     while True:
         frame, results = client.get_frame(PostProcessors.Google_IMDA)
@@ -19,7 +15,7 @@ def show_image():
         cv2.waitKey(1)
         imda = results[PostProcessors.Google_IMDA]
         if imda:
-            if imda['label'] == 'Google' and imda['score'] > 0.5:
+            if imda['label'] == 'IMDA' and imda['score'] > 0.5:
                 break
     image = Image.fromarray(frame)
     image.show()
@@ -27,16 +23,16 @@ def show_image():
 video_thread = threading.Thread(target=show_image)
 
 client.single_fly_takeoff()
-tof_thread.start()
-client.single_fly_forward(120)#Change this value accordingly
+#Adjust the height
+height = int(client.get_plane_distance()/2)
+client.single_fly_down(height)
+client.single_fly_forward(10)
+client.single_fly_radius_around(60)
+client.single_fly_up(height)
 video_thread.start()
-heights = tof_thread.stop()
-client.single_fly_touchdown()
+client.single_fly_radius_around(60)
 
-plt.scatter(range(0, len(heights)), heights)
-for i in range(2, len(heights), 3):
-    gradient = (heights[i-2]-heights[i])/2
-    if gradient > 10 or gradient < -10:
-        print(f'Height of the first step{heights[i-2]-heights[i]}')
-        break
-plt.show()
+client.single_fly_up(60)
+client.single_fly_forward(20)
+client.single_fly_Qrcode_align(0, 0)
+client.single_fly_touchdown()
